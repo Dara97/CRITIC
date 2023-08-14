@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="24dp"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Metodo CRITIC"
+        app:layout_constraintBottom_toTopOf="@+id/title_numero_de_alternativas"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/title_numero_de_alternativas"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:text="Numero de alternativas"
+        app:layout_constraintBottom_toTopOf="@id/title_datos_de_alternativas"
+        app:layout_constraintEnd_toStartOf="@id/editText_numero_de_alternativas"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title" />
+
+    <EditText
+        android:id="@+id/editText_numero_de_alternativas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="2"
+        app:layout_constraintBottom_toBottomOf="@id/title_numero_de_alternativas"
+        app:layout_constraintEnd_toStartOf="@id/title_numero_de_criterios"
+        app:layout_constraintStart_toEndOf="@id/title_numero_de_alternativas"
+        app:layout_constraintTop_toTopOf="@id/title_numero_de_alternativas" />
+
+    <TextView
+        android:id="@+id/title_numero_de_criterios"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:text="Numero de criterios"
+        app:layout_constraintEnd_toStartOf="@id/editText_numero_de_criterios"
+        app:layout_constraintStart_toEndOf="@id/editText_numero_de_alternativas"
+        app:layout_constraintTop_toTopOf="@id/editText_numero_de_alternativas"
+        app:layout_constraintBottom_toBottomOf="@id/editText_numero_de_alternativas"
+        />
+
+    <EditText
+        android:id="@+id/editText_numero_de_criterios"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="2"
+        app:layout_constraintBottom_toBottomOf="@id/title_numero_de_criterios"
+        app:layout_constraintEnd_toStartOf="@id/button_agregar_datos"
+        app:layout_constraintStart_toEndOf="@id/title_numero_de_criterios"
+        app:layout_constraintTop_toTopOf="@id/title_numero_de_criterios"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_agregar_datos"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:text="Crear"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="@id/editText_numero_de_criterios"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/editText_numero_de_criterios"
+        app:layout_constraintTop_toTopOf="@id/editText_numero_de_criterios" />
+
+    <TextView
+        android:id="@+id/title_datos_de_alternativas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Datos de Alternativas"
+        app:layout_constraintBottom_toTopOf="@id/editText_nombres_de_alternativas"
+        app:layout_constraintEnd_toStartOf="@id/title_datos_de_criterios"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_agregar_datos" />
+
+    <EditText
+        android:id="@+id/editText_nombres_de_alternativas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Nombre alternativa"
+        app:layout_constraintBottom_toTopOf="@id/boton_guardar_alternativa"
+        app:layout_constraintEnd_toStartOf="@id/editText_nombres_de_criterios"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title_datos_de_alternativas" />
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/boton_guardar_alternativa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Guardar alternativa"
+        app:layout_constraintBottom_toTopOf="@id/editText_datos_de_criterios"
+        app:layout_constraintEnd_toStartOf="@id/boton_guardar_criterios"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editText_nombres_de_alternativas" />
+
+    <TextView
+        android:id="@+id/title_datos_de_criterios"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Datos de Criterios"
+        app:layout_constraintBottom_toBottomOf="@id/title_datos_de_alternativas"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/title_datos_de_alternativas"
+        app:layout_constraintTop_toTopOf="@id/title_datos_de_alternativas"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <EditText
+        android:id="@+id/editText_nombres_de_criterios"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Nombre criterio"
+        app:layout_constraintBottom_toBottomOf="@id/editText_nombres_de_alternativas"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/editText_nombres_de_alternativas"
+        app:layout_constraintTop_toTopOf="@id/editText_nombres_de_alternativas" />
+
+    <EditText
+        android:id="@+id/editText_datos_de_criterios"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="5"
+        app:layout_constraintBottom_toTopOf="@id/ListaAlternativas"
+        app:layout_constraintEnd_toStartOf="@id/boton_guardar_criterios"
+        app:layout_constraintHorizontal_bias="0.509"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/boton_guardar_alternativa" />
+
+    <Button
+        android:id="@+id/boton_guardar_datos_matriz"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="guardar Dato"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/editText_datos_de_criterios"
+        app:layout_constraintTop_toTopOf="@+id/editText_datos_de_criterios" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/boton_guardar_criterios"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="guardar Criterio"
+        app:layout_constraintBottom_toBottomOf="@+id/boton_guardar_alternativa"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/boton_guardar_alternativa"
+        app:layout_constraintTop_toTopOf="@+id/boton_guardar_alternativa" />
+
+    <Button
+        android:id="@+id/Calcular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Calcular"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ListaAlternativas" />
+
+    <TextView
+        android:id="@+id/ListaAlternativas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Lista de alternativas"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editText_datos_de_criterios"
+        app:layout_constraintBottom_toTopOf="@id/Calcular"
+        app:layout_constraintEnd_toStartOf="@id/ListaCriterios"
+        />
+
+    <TextView
+        android:id="@+id/ListaCriterios"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Lista de alternativas"
+        app:layout_constraintBottom_toBottomOf="@+id/ListaAlternativas"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ListaAlternativas"
+        app:layout_constraintTop_toTopOf="@+id/ListaAlternativas" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
