@@ -180,10 +180,21 @@
         android:id="@+id/ListaCriterios"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Lista de alternativas"
+        android:hint="Lista de criterios"
         app:layout_constraintBottom_toBottomOf="@+id/ListaAlternativas"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/ListaDatos"
         app:layout_constraintStart_toEndOf="@+id/ListaAlternativas"
         app:layout_constraintTop_toTopOf="@+id/ListaAlternativas" />
+
+    <TextView
+        android:id="@+id/ListaDatos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Lista de datos"
+        app:layout_constraintTop_toTopOf="@id/ListaCriterios"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/ListaCriterios"
+        tools:layout_editor_absoluteX="276dp"
+        tools:layout_editor_absoluteY="592dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

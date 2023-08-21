@@ -3,7 +3,6 @@ package com.dara.modelocritic
 import android.os.Bundle
 import android.util.Log
 import android.widget.GridLayout
-import android.widget.TableRow
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.dara.modelocritic.databinding.ActivityCalculateBinding
@@ -17,11 +16,12 @@ class CalculateActivity: AppCompatActivity() {
 
         val alternativas = intent.getParcelableArrayListExtra<Alternativa>("ALTERNATIVAS") as List<Alternativa>
         val criterios = intent.getParcelableArrayListExtra<Criterio>("CRITERIOS") as List<Criterio>
+        val datos = intent.getParcelableArrayListExtra<Criterio>("DATOS") as MutableList<List<Any>>
 
        // binding.mostrarDatos.text = "Datos de Alternativas:\n${mostrarDatos(alternativas)}\n\nDatos de Criterios:\n${mostrarDatos(criterios)}"
         Log.d("PRUEBAS", alternativas.toString())
 
-        mostrarDatosEnMatriz(alternativas, criterios)
+        mostrarDatosEnMatriz(alternativas, criterios, datos)
     }
 
     private fun mostrarDatos(lista: List<Any>) : String {
@@ -29,13 +29,14 @@ class CalculateActivity: AppCompatActivity() {
         lista.forEachIndexed { index, data ->
             when (data) {
                 is Alternativa -> result += "Alternativa $index: Nombre = ${data.nombre}\n"
-                is Criterio -> result += "Criterio $index: Nombre = ${data.nombre}, Dato = ${data.dato}\n"
+                is Criterio -> result += "Criterio $index: Nombre = ${data.nombre}\n"
+                is Datos -> result += "Criterio $index: Nombre = ${data.datos}\n"
             }
         }
         return result
     }
 
-    private fun mostrarDatosEnMatriz(alternativas: List<Alternativa>, criterios: List<Criterio>) {
+    private fun mostrarDatosEnMatriz(alternativas: List<Alternativa>, criterios: List<Criterio>, datos: MutableList<List<Any>>) {
         val gridLayout = binding.gridLayout
 
         // Calcular el número de filas y columnas
@@ -56,7 +57,17 @@ class CalculateActivity: AppCompatActivity() {
         // Agregar los criterios como columnas
         for ((index, criterio) in criterios.withIndex()) {
             val colView = TextView(this)
-            colView.text = "Criterio $index: ${criterio.nombre} (${criterio.dato})"
+            colView.text = "Criterio $index: ${criterio.nombre}"
+            val params = GridLayout.LayoutParams()
+            params.rowSpec = GridLayout.spec(0)
+            params.columnSpec = GridLayout.spec(index + 1)
+            colView.layoutParams = params
+            gridLayout.addView(colView)
+        }
+
+        for ((index, datos) in datos.withIndex()) {
+            val colView = TextView(this)
+            colView.text = "Criterio $index: ${datos}"
             val params = GridLayout.LayoutParams()
             params.rowSpec = GridLayout.spec(0)
             params.columnSpec = GridLayout.spec(index + 1)
