@@ -1,0 +1,26 @@
+<!-- row_table.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/textViewAlternativa"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:padding="16dp"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <!-- TextViews para otros criterios -->
+    <TextView
+        android:id="@+id/textViewCriterio1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:padding="16dp"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <!-- Agrega más TextViews para otros criterios -->
+
+</LinearLayout>
