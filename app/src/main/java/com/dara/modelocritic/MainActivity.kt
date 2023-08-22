@@ -117,7 +117,7 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, CalculateActivity::class.java)
             intent.putParcelableArrayListExtra("ALTERNATIVAS", ArrayList(nombresAlternativas))
             intent.putParcelableArrayListExtra("CRITERIOS", ArrayList(nombresCriterios))
-            intent.putParcelableArrayListExtra("DATOS", ArrayList(datosCriterios))
+            intent.putExtra("DATOS", dataMatriz.map { it.toList() }.toTypedArray())
             startActivity(intent)
         }
     }

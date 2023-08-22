@@ -2,7 +2,12 @@ package com.dara.modelocritic
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.view.ViewGroup
 import android.widget.GridLayout
+import android.widget.LinearLayout
+import android.widget.TableLayout
+import android.widget.TableRow
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.dara.modelocritic.databinding.ActivityCalculateBinding
@@ -16,63 +21,57 @@ class CalculateActivity: AppCompatActivity() {
 
         val alternativas = intent.getParcelableArrayListExtra<Alternativa>("ALTERNATIVAS") as List<Alternativa>
         val criterios = intent.getParcelableArrayListExtra<Criterio>("CRITERIOS") as List<Criterio>
-        val datos = intent.getParcelableArrayListExtra<Criterio>("DATOS") as MutableList<List<Any>>
+        val datos = intent.getSerializableExtra("DATOS") as Array<List<Any>>
 
-       // binding.mostrarDatos.text = "Datos de Alternativas:\n${mostrarDatos(alternativas)}\n\nDatos de Criterios:\n${mostrarDatos(criterios)}"
-        Log.d("PRUEBAS", alternativas.toString())
+        val tableLayout = binding.tableLayout
 
-        mostrarDatosEnMatriz(alternativas, criterios, datos)
-    }
+        // Agregar fila de encabezado con nombres de criterios
+        val headerRow = createHeaderRow(criterios)
+        tableLayout.addView(headerRow)
 
-    private fun mostrarDatos(lista: List<Any>) : String {
-        var result = ""
-        lista.forEachIndexed { index, data ->
-            when (data) {
-                is Alternativa -> result += "Alternativa $index: Nombre = ${data.nombre}\n"
-                is Criterio -> result += "Criterio $index: Nombre = ${data.nombre}\n"
-                is Datos -> result += "Criterio $index: Nombre = ${data.datos}\n"
-            }
-        }
-        return result
-    }
-
-    private fun mostrarDatosEnMatriz(alternativas: List<Alternativa>, criterios: List<Criterio>, datos: MutableList<List<Any>>) {
-        val gridLayout = binding.gridLayout
-
-        // Calcular el número de filas y columnas
-        val numRows = alternativas.size
-        val numCols = criterios.size
-
-        // Agregar las alternativas como filas
+        // Agregar filas para cada alternativa y sus datos
         for ((index, alternativa) in alternativas.withIndex()) {
-            val rowView = TextView(this)
-            rowView.text = "Alternativa $index: ${alternativa.nombre}"
-            val params = GridLayout.LayoutParams()
-            params.rowSpec = GridLayout.spec(index)
-            params.columnSpec = GridLayout.spec(0)
-            rowView.layoutParams = params
-            gridLayout.addView(rowView)
+            val dataRow = createDataRow(alternativa, criterios, datos[index])
+            tableLayout.addView(dataRow)
+        }
+    }
+
+    private fun createHeaderRow(criterios: List<Criterio>): TableRow {
+        val headerRow = TableRow(this)
+        headerRow.setBackgroundResource(R.drawable.table_border)
+
+        val emptyHeaderCell = createCell("")
+        headerRow.addView(emptyHeaderCell)
+
+        for (criterio in criterios) {
+            val headerCell = criterio.nombre?.let { createCell(it) }
+            headerRow.addView(headerCell)
         }
 
-        // Agregar los criterios como columnas
-        for ((index, criterio) in criterios.withIndex()) {
-            val colView = TextView(this)
-            colView.text = "Criterio $index: ${criterio.nombre}"
-            val params = GridLayout.LayoutParams()
-            params.rowSpec = GridLayout.spec(0)
-            params.columnSpec = GridLayout.spec(index + 1)
-            colView.layoutParams = params
-            gridLayout.addView(colView)
+        return headerRow
+    }
+
+    private fun createDataRow(alternativa: Alternativa, criterios: List<Criterio>, data: List<Any>): TableRow {
+        val dataRow = TableRow(this)
+        dataRow.setBackgroundResource(R.drawable.table_border)
+
+        val alternativaCell = alternativa.nombre?.let { createCell(it) }
+        dataRow.addView(alternativaCell)
+
+        for (value in data) {
+            val dataCell = createCell(value.toString())
+            dataRow.addView(dataCell)
         }
 
-        for ((index, datos) in datos.withIndex()) {
-            val colView = TextView(this)
-            colView.text = "Criterio $index: ${datos}"
-            val params = GridLayout.LayoutParams()
-            params.rowSpec = GridLayout.spec(0)
-            params.columnSpec = GridLayout.spec(index + 1)
-            colView.layoutParams = params
-            gridLayout.addView(colView)
-        }
+        return dataRow
+    }
+
+    private fun createCell(text: String): TextView {
+        val cell = TextView(this)
+        cell.text = text
+        cell.setBackgroundResource(R.drawable.table_border)
+        cell.setPadding(16, 16, 16, 16)
+        cell.setTextColor(resources.getColor(R.color.purple_200)) // Cambia al color de texto deseado
+        return cell
     }
 }
