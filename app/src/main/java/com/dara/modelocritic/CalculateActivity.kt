@@ -1,11 +1,11 @@
 package com.dara.modelocritic
 
+import com.dara.modelocritic.recyclerView.TableAdapter
 import android.os.Bundle
-import android.util.Log
-import android.widget.GridLayout
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.dara.modelocritic.databinding.ActivityCalculateBinding
+
 
 class CalculateActivity: AppCompatActivity() {
     private lateinit var binding: ActivityCalculateBinding
@@ -16,63 +16,13 @@ class CalculateActivity: AppCompatActivity() {
 
         val alternativas = intent.getParcelableArrayListExtra<Alternativa>("ALTERNATIVAS") as List<Alternativa>
         val criterios = intent.getParcelableArrayListExtra<Criterio>("CRITERIOS") as List<Criterio>
-        val datos = intent.getParcelableArrayListExtra<Criterio>("DATOS") as MutableList<List<Any>>
+        val datos = intent.getSerializableExtra("DATOS") as Array<List<Any>>
 
-       // binding.mostrarDatos.text = "Datos de Alternativas:\n${mostrarDatos(alternativas)}\n\nDatos de Criterios:\n${mostrarDatos(criterios)}"
-        Log.d("PRUEBAS", alternativas.toString())
+        val recyclerView = binding.recyclerView // Aquí debes usar el ID correcto del RecyclerView en tu layout
+        recyclerView.layoutManager = LinearLayoutManager(this)
 
-        mostrarDatosEnMatriz(alternativas, criterios, datos)
-    }
+        val adapter = TableAdapter(criterios, alternativas, datos)
+        recyclerView.adapter = adapter
 
-    private fun mostrarDatos(lista: List<Any>) : String {
-        var result = ""
-        lista.forEachIndexed { index, data ->
-            when (data) {
-                is Alternativa -> result += "Alternativa $index: Nombre = ${data.nombre}\n"
-                is Criterio -> result += "Criterio $index: Nombre = ${data.nombre}\n"
-                is Datos -> result += "Criterio $index: Nombre = ${data.datos}\n"
-            }
-        }
-        return result
-    }
-
-    private fun mostrarDatosEnMatriz(alternativas: List<Alternativa>, criterios: List<Criterio>, datos: MutableList<List<Any>>) {
-        val gridLayout = binding.gridLayout
-
-        // Calcular el número de filas y columnas
-        val numRows = alternativas.size
-        val numCols = criterios.size
-
-        // Agregar las alternativas como filas
-        for ((index, alternativa) in alternativas.withIndex()) {
-            val rowView = TextView(this)
-            rowView.text = "Alternativa $index: ${alternativa.nombre}"
-            val params = GridLayout.LayoutParams()
-            params.rowSpec = GridLayout.spec(index)
-            params.columnSpec = GridLayout.spec(0)
-            rowView.layoutParams = params
-            gridLayout.addView(rowView)
-        }
-
-        // Agregar los criterios como columnas
-        for ((index, criterio) in criterios.withIndex()) {
-            val colView = TextView(this)
-            colView.text = "Criterio $index: ${criterio.nombre}"
-            val params = GridLayout.LayoutParams()
-            params.rowSpec = GridLayout.spec(0)
-            params.columnSpec = GridLayout.spec(index + 1)
-            colView.layoutParams = params
-            gridLayout.addView(colView)
-        }
-
-        for ((index, datos) in datos.withIndex()) {
-            val colView = TextView(this)
-            colView.text = "Criterio $index: ${datos}"
-            val params = GridLayout.LayoutParams()
-            params.rowSpec = GridLayout.spec(0)
-            params.columnSpec = GridLayout.spec(index + 1)
-            colView.layoutParams = params
-            gridLayout.addView(colView)
-        }
     }
 }
